@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+
+  <div id="mydiv" dir="rtl"></div>
+
+  <script type="text/babel">
+    const logo = './logo.png'
+    const { useState } = React;
+    const news = [
+      { title: "اساتید یک‌درصد برتر جهان از دانشگاه بوعلی‌سینا", date: "چهارشنبه، ۹ فروردین ۱۴۰۲" },
+      { title: "رهبر انقلاب شعار سال", date: "فروردین " },
+      { title: "رئیس دانشگاه بوعلی‌سینا", date: "سه‌شنبه، ۱ فروردین ۱۴۰۲" },
+      { title: "سومین نشست عادی از دوره نهم هیأت", date: "فروردین " },
+      { title: "اداره امور کنسولی دانشجویان غیرایرانی", date: "فروردین " }
+    ];
+    function handleAnchorClick(event, f1,v1){
+        event.preventDefault();
+        f1(Math.abs(v1-1));
+       console.log(event.currentTarget);
+  };
+    function OrangeNav({thisP, changePage}) {
+      return <nav style={{ backgroundColor: 'orange' }}>
+        <ol style={{ listStyleType: "none", paddingRight: "0" }}>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" onClick={event =>
+          handleAnchorClick(event, changePage,thisP)}>اساتید</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">کارکنان</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">دانشجویان</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">فارغ التحصیلان</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">بازدیدکنندگان</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">میز خدمت الکنرونیک</a></li>
+        </ol>
+      </nav>;
+    }
+    function BlueNav() {
+      return <nav style={{ backgroundColor: 'blue' }}>
+        <ol style={{ listStyleType: "none", paddingRight: "0" }}>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#"><img src={logo} alt="Logo" /></a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>دانشگاه</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>آموزش</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>پژوهش </a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>رفاهی</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>  فوق برنامه </a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>  دانشکده ها  </a></li>
+        </ol>
+      </nav>;
+    }
+    function BlackNav() {
+      return <nav style={{ backgroundColor: 'black' }}>
+        <ol style={{ listStyleType: "none", paddingRight: "0" }}>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>پیوندها</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>واحدها و مراکز</a></li>
+          <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" style={{ color: 'white' }}>دانشگاه بوعلی سینا </a></li>
+
+        </ol>
+      </nav>;
+    }
+    function BodyP({ news }) {
+      return (
+        <p>
+        <h1 style={{ color: 'blue' }}>
+          آخرین اخبار
+          </h1>
+          <table >
+            <tbody>
+              <tr>
+                <th rowSpan="2">
+
+                  {news[0].title}
+                </th>
+                <th >
+                  {news[1].title}
+                </th>
+                <th >
+                  {news[2].title}
+                </th>
+              </tr>
+              <tr>
+                <th >
+                  {news[3].title}
+                </th>
+                <th >
+                  {news[4].title}
+                </th>
+              </tr>
+
+            </tbody>
+          </table>
+        </p>
+      );
+    }
+    function BodyPT({ news }) {
+        const rows = [];
+        news.forEach((news1) => {rows.push(<tr>
+          <td>{news1.title}</td>
+          <td>{news1.date}</td>
+        </tr>)})
+      return (
+        <>
+        <h1 style={{ color: 'blue' }}>
+          آخرین اخبار
+          </h1>
+          <table >
+            <thead>
+            <tr>
+              <th>عنوان</th>
+              <th>تاریخ</th>
+            </tr>
+          </thead>
+            <tbody>{rows}</tbody>
+        </table>
+        </>
+      );
+    }
+    function BasuPages() {
+        const [newPage, setNewPage] = useState(0);
+        const b=newPage==1?<BodyPT news={news} /> : <BodyP news={news} />
+      return (<>
+        <OrangeNav thisP={newPage} changePage={setNewPage}/>
+        <BlueNav />
+        {b}
+        <BlackNav />
+      </>
+      );
+
+    }
+    ReactDOM.render(<BasuPages />, document.getElementById('mydiv'))
+  </script>
+
+</body>
+
+</html>
