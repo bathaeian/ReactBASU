@@ -21,16 +21,11 @@
       { title: "سومین نشست عادی از دوره نهم هیأت", date: "فروردین " },
       { title: "اداره امور کنسولی دانشجویان غیرایرانی", date: "فروردین " }
     ];
-    function handleAnchorClick(event, f1,v1){
-        event.preventDefault();
-        f1(Math.abs(v1-1));
-       console.log(event.currentTarget);
-  };
     function OrangeNav({thisP, changePage}) {
       return <nav style={{ backgroundColor: 'orange' }}>
         <ol style={{ listStyleType: "none", paddingRight: "0" }}>
           <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#" onClick={event =>
-          handleAnchorClick(event, changePage,thisP)}>اساتید</a></li>
+          {event.preventDefault(); changePage(Math.abs(v1-1));}}>اساتید</a></li>
           <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">کارکنان</a></li>
           <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">دانشجویان</a></li>
           <li style={{ display: "inline-block", padding: "0 5px" }}><a href="#">فارغ التحصیلان</a></li>
